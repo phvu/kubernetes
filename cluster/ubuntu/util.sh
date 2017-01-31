@@ -225,7 +225,6 @@ function verify-node() {
 # $1: The one IP address where the etcd leader listens.
 function create-etcd-opts() {
   cat <<EOF > ~/kube/default/etcd
-eval \$(cat /etc/environment | sed 's/^/export /')
 ETCD_OPTS="\
  -name infra\
  --listen-client-urls=http://127.0.0.1:4001,http://${1}:4001\
@@ -241,7 +240,6 @@ EOF
 # $5: Tells kube-api to run in privileged mode
 function create-kube-apiserver-opts() {
   cat <<EOF > ~/kube/default/kube-apiserver
-eval \$(cat /etc/environment | sed 's/^/export /')
 KUBE_APISERVER_OPTS="\
  --insecure-bind-address=0.0.0.0\
  --insecure-port=8080\
@@ -261,7 +259,6 @@ EOF
 # Create ~/kube/default/kube-controller-manager with proper contents.
 function create-kube-controller-manager-opts() {
   cat <<EOF > ~/kube/default/kube-controller-manager
-eval \$(cat /etc/environment | sed 's/^/export /')
 KUBE_CONTROLLER_MANAGER_OPTS="\
  --master=127.0.0.1:8080\
  --root-ca-file=/srv/kubernetes/ca.crt\
@@ -274,7 +271,6 @@ EOF
 # Create ~/kube/default/kube-scheduler with proper contents.
 function create-kube-scheduler-opts() {
   cat <<EOF > ~/kube/default/kube-scheduler
-eval \$(cat /etc/environment | sed 's/^/export /')
 KUBE_SCHEDULER_OPTS="\
  --logtostderr=true\
  --master=127.0.0.1:8080"
@@ -297,7 +293,6 @@ function create-kubelet-opts() {
       cni_opts=""
   fi
   cat <<EOF > ~/kube/default/kubelet
-eval \$(cat /etc/environment | sed 's/^/export /')
 KUBELET_OPTS="\
  --hostname-override=${1} \
  --api-servers=http://${2}:8080 \
@@ -315,7 +310,6 @@ EOF
 # $2: The one hostname or IP address at which the API server is reached (insecurely).
 function create-kube-proxy-opts() {
   cat <<EOF > ~/kube/default/kube-proxy
-eval \$(cat /etc/environment | sed 's/^/export /')
 KUBE_PROXY_OPTS="\
  --hostname-override=${1} \
  --master=http://${2}:8080 \
@@ -330,7 +324,6 @@ EOF
 # $2: The IP address or network interface for the local Flannel daemon to use
 function create-flanneld-opts() {
   cat <<EOF > ~/kube/default/flanneld
-eval \$(cat /etc/environment | sed 's/^/export /')
 FLANNEL_OPTS="--etcd-endpoints=http://${1}:4001 \
  --ip-masq \
  --iface=${2}"
