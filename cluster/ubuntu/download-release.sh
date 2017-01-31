@@ -79,8 +79,10 @@ fi
 echo "Prepare kubernetes ${KUBE_VERSION} release ..."
 grep -q "^${KUBE_VERSION}\$" binaries/.kubernetes 2>/dev/null || {
   # TODO(#33726): switch to dl.k8s.io
-  curl -L https://storage.googleapis.com/kubernetes-release/release/v${KUBE_VERSION}/kubernetes-client-linux-amd64.tar.gz -o kubernetes-client-linux-amd64.tar.gz
-  curl -L https://storage.googleapis.com/kubernetes-release/release/v${KUBE_VERSION}/kubernetes-server-linux-amd64.tar.gz -o kubernetes-server-linux-amd64.tar.gz
+  #curl -L https://storage.googleapis.com/kubernetes-release/release/v${KUBE_VERSION}/kubernetes-client-linux-amd64.tar.gz -o kubernetes-client-linux-amd64.tar.gz
+  #curl -L https://storage.googleapis.com/kubernetes-release/release/v${KUBE_VERSION}/kubernetes-server-linux-amd64.tar.gz -o kubernetes-server-linux-amd64.tar.gz
+  cp ../../_output/release-tars/kubernetes-client-linux-amd64.tar.gz ./
+  cp ../../_output/release-tars/kubernetes-server-linux-amd64.tar.gz ./
   tar xzf kubernetes-client-linux-amd64.tar.gz
   tar xzf kubernetes-server-linux-amd64.tar.gz
   cp kubernetes/client/bin/kubectl binaries/
