@@ -64,7 +64,8 @@ function restart_docker {
   source /run/flannel/subnet.env
   source /etc/default/docker
   echo DOCKER_OPTS=\" -H tcp://127.0.0.1:4243 -H unix:///var/run/docker.sock \
-       --bip=${FLANNEL_SUBNET} --mtu=${FLANNEL_MTU} \" > /etc/default/docker
+       --bip=${FLANNEL_SUBNET} --mtu=${FLANNEL_MTU} \
+       --log-opt max-size=100m --log-opt max-file=5 \" > /etc/default/docker
        #--log-driver=fluentd \
        #--log-opt fluentd-address=localhost:24224 \
        #--log-opt tag=docker.{{.Name}} \
