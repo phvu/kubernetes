@@ -71,6 +71,7 @@ function restart_docker {
        #--log-opt tag=docker.{{.Name}} \
        #--log-opt fluentd-async-connect=true \" > /etc/default/docker
   sudo service docker restart
+  sudo service nvidia-docker restart
 }
 
 if [[ $1 == "i" ]]; then
